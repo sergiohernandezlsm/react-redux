@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import AddedNumber from './AddedNumber';
+import Form from './Form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class DisplayApp extends Component{
+
+  state = {
+    number: 0,
+    name: '',
+    submitedName: '',
+    showName: false
+  }
+
+  handleNumber = (x) => {
+    this.setState({number: this.state.number + x})
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      showName: true,
+      submitedName: this.state.name
+    });
+  }
+  
+  handleChange = event => {
+    this.setState({ name: event.target.value });
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>Added Number</h3>
+        <AddedNumber 
+          number={this.state.number}
+          handleNumber={this.handleNumber}
+        />
+        <h3>Form</h3>
+        <Form 
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          nameInput={this.state.submitedName}
+          showName={this.state.showName}
+        />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default DisplayApp;
